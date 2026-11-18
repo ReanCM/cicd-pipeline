@@ -21,22 +21,21 @@ pipeline {
     }
 
     post {
-        success {
-            sh '''
-                curl -sS -X POST https://webexapis.com/v1/messages \
-                -H "Authorization: Bearer $WEBEX_BOT_TOKEN" \
-                -H "Content-Type: application/json" \
-                -d "{\"roomId\":\"$WEBEX_ROOM_ID\",\"text\":\"Jenkins Build #$BUILD_NUMBER SUCCESS\"}"
-            '''
-        }
+    success {
+        sh '''
+            curl -sS -X POST "https://webexapis.com/v1/messages" \
+              -H "Authorization: Bearer ${WEBEX_BOT_TOKEN}" \
+              -H "Content-Type: application/json" \
+              --data "{\"roomId\":\"${WEBEX_ROOM_ID}\",\"text\":\"Jenkins Build #${BUILD_NUMBER} SUCCESS\"}"
+        '''
+    }
 
-        failure {
-            sh '''
-                curl -sS -X POST https://webexapis.com/v1/messages \
-                -H "Authorization: Bearer $WEBEX_BOT_TOKEN" \
-                -H "Content-Type: application/json" \
-                -d "{\"roomId\":\"$WEBEX_ROOM_ID\",\"text\":\"Jenkins Build #$BUILD_NUMBER FAILED\"}"
-            '''
-        }
+    failure {
+        sh '''
+            curl -sS -X POST "https://webexapis.com/v1/messages" \
+              -H "Authorization: Bearer ${WEBEX_BOT_TOKEN}" \
+              -H "Content-Type: application/json" \
+              --data "{\"roomId\":\"${WEBEX_ROOM_ID}\",\"text\":\"Jenkins Build #${BUILD_NUMBER} FAILED\"}"
+        '''
     }
 }
