@@ -3,7 +3,7 @@
 # automatic webhoook test
 # final version
 # final CI/CD recording test
-# Final CI/CD demonstration
+# Final CI/CD demonstration - recording
 
 def add(a, b):
     return a + b
